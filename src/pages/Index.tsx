@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Mail } from "@/types/mail";
+import { Mail, MailStatus } from "@/types/mail";
 import MailList from "@/components/MailList";
 import AddMailForm from "@/components/AddMailForm";
 import MailDetail from "@/components/MailDetail";
@@ -32,7 +32,11 @@ const Index = () => {
         throw error;
       }
       
-      return data || [];
+      // Ensure the status is properly typed
+      return (data || []).map(mail => ({
+        ...mail,
+        status: mail.status as MailStatus // Type assertion since we know the values are constrained in the database
+      }));
     }
   });
 
@@ -47,7 +51,7 @@ const Index = () => {
           description: newMail.description,
           sender: newMail.sender,
           date: newMail.date,
-          status: 'baru'
+          status: 'baru' as MailStatus
         }])
         .select()
         .single();

@@ -7,6 +7,7 @@ export interface Mail {
   subject: string;
   sender: string;
   date: string;
+  description?: string;
   attachment?: File;
   status: MailStatus;
 }

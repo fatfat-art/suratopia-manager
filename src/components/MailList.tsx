@@ -31,13 +31,16 @@ const MailList: React.FC<MailListProps> = ({ mails, onMailSelect }) => {
           className="p-4 cursor-pointer hover:shadow-lg transition-shadow"
           onClick={() => onMailSelect(mail)}
         >
-          <div className="flex justify-between items-start">
-            <div>
+          <div className="flex flex-col md:flex-row justify-between items-start gap-4">
+            <div className="space-y-2 flex-1">
               <h3 className="font-semibold text-lg">{mail.title}</h3>
               <p className="text-sm text-gray-600">No: {mail.number}</p>
               <p className="text-sm text-gray-600">Dari: {mail.sender}</p>
+              {mail.description && (
+                <p className="text-sm text-gray-600 line-clamp-2">{mail.description}</p>
+              )}
             </div>
-            <div className="flex flex-col items-end space-y-2">
+            <div className="flex flex-row md:flex-col items-center md:items-end gap-2 md:gap-4 w-full md:w-auto">
               <Badge className={getStatusColor(mail.status)}>
                 {mail.status.charAt(0).toUpperCase() + mail.status.slice(1)}
               </Badge>

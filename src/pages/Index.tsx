@@ -40,21 +40,22 @@ const Index = () => {
     (mail) =>
       mail.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       mail.number.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      mail.sender.toLowerCase().includes(searchQuery.toLowerCase())
+      mail.sender.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (mail.description?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false)
   );
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-primary">Disposisi Surat Masuk</h1>
+    <div className="container mx-auto py-4 md:py-8 px-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 md:mb-8">
+        <h1 className="text-2xl md:text-3xl font-bold text-primary">Disposisi Surat Masuk</h1>
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="bg-primary">
+            <Button className="bg-primary w-full md:w-auto">
               <Plus className="mr-2 h-4 w-4" />
               Tambah Surat
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
+          <DialogContent className="w-[95vw] max-w-[600px]">
             <AddMailForm onSubmit={handleAddMail} />
           </DialogContent>
         </Dialog>
@@ -64,7 +65,7 @@ const Index = () => {
         <div className="relative">
           <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
           <Input
-            placeholder="Cari surat berdasarkan judul, nomor, atau pengirim..."
+            placeholder="Cari surat berdasarkan judul, nomor, pengirim, atau keterangan..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
@@ -80,15 +81,13 @@ const Index = () => {
             onMailSelect={setSelectedMail}
           />
         </div>
-        <div>
+        <div className="lg:sticky lg:top-4">
           {selectedMail && (
-            <div className="sticky top-4">
-              <MailDetail
-                mail={selectedMail}
-                onStatusChange={handleStatusChange}
-                onClose={() => setSelectedMail(null)}
-              />
-            </div>
+            <MailDetail
+              mail={selectedMail}
+              onStatusChange={handleStatusChange}
+              onClose={() => setSelectedMail(null)}
+            />
           )}
         </div>
       </div>

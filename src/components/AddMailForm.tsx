@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MailStatus } from "@/types/mail";
+import { Mail } from "@/types/mail";
 import {
   Select,
   SelectContent,
@@ -21,13 +21,14 @@ const AddMailForm: React.FC<AddMailFormProps> = ({ onSubmit }) => {
   const { register, handleSubmit, formState: { errors } } = useForm<Partial<Mail>>();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-md mx-auto">
       <div className="space-y-2">
         <Label htmlFor="title">Judul Surat</Label>
         <Input
           id="title"
           {...register("title", { required: true })}
           placeholder="Masukkan judul surat"
+          className="w-full"
         />
         {errors.title && (
           <span className="text-red-500 text-sm">Judul surat wajib diisi</span>
@@ -40,6 +41,7 @@ const AddMailForm: React.FC<AddMailFormProps> = ({ onSubmit }) => {
           id="number"
           {...register("number", { required: true })}
           placeholder="Masukkan nomor surat"
+          className="w-full"
         />
         {errors.number && (
           <span className="text-red-500 text-sm">Nomor surat wajib diisi</span>
@@ -52,10 +54,21 @@ const AddMailForm: React.FC<AddMailFormProps> = ({ onSubmit }) => {
           id="subject"
           {...register("subject", { required: true })}
           placeholder="Masukkan perihal surat"
+          className="w-full min-h-[100px]"
         />
         {errors.subject && (
           <span className="text-red-500 text-sm">Perihal wajib diisi</span>
         )}
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="description">Keterangan</Label>
+        <Textarea
+          id="description"
+          {...register("description")}
+          placeholder="Masukkan keterangan tambahan"
+          className="w-full min-h-[100px]"
+        />
       </div>
 
       <div className="space-y-2">
@@ -64,6 +77,7 @@ const AddMailForm: React.FC<AddMailFormProps> = ({ onSubmit }) => {
           id="sender"
           {...register("sender", { required: true })}
           placeholder="Masukkan nama pengirim"
+          className="w-full"
         />
         {errors.sender && (
           <span className="text-red-500 text-sm">Pengirim wajib diisi</span>
@@ -76,6 +90,7 @@ const AddMailForm: React.FC<AddMailFormProps> = ({ onSubmit }) => {
           id="date"
           type="date"
           {...register("date", { required: true })}
+          className="w-full"
         />
         {errors.date && (
           <span className="text-red-500 text-sm">Tanggal surat wajib diisi</span>
@@ -89,6 +104,7 @@ const AddMailForm: React.FC<AddMailFormProps> = ({ onSubmit }) => {
           type="file"
           accept=".pdf,.doc,.docx"
           {...register("attachment")}
+          className="w-full"
         />
       </div>
 

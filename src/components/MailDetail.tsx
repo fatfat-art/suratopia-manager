@@ -24,15 +24,15 @@ const MailDetail: React.FC<MailDetailProps> = ({
   onClose,
 }) => {
   return (
-    <Card className="p-6 space-y-6">
-      <div className="flex justify-between items-start">
-        <h2 className="text-2xl font-bold">{mail.title}</h2>
-        <Button variant="outline" onClick={onClose}>
+    <Card className="p-4 md:p-6 space-y-4 md:space-y-6">
+      <div className="flex justify-between items-start flex-wrap gap-4">
+        <h2 className="text-xl md:text-2xl font-bold">{mail.title}</h2>
+        <Button variant="outline" onClick={onClose} size="sm">
           Tutup
         </Button>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <p className="text-sm text-gray-500">Nomor Surat</p>
           <p className="font-medium">{mail.number}</p>
@@ -67,6 +67,13 @@ const MailDetail: React.FC<MailDetailProps> = ({
         <p className="text-sm text-gray-500">Perihal</p>
         <p className="mt-1">{mail.subject}</p>
       </div>
+
+      {mail.description && (
+        <div>
+          <p className="text-sm text-gray-500">Keterangan</p>
+          <p className="mt-1">{mail.description}</p>
+        </div>
+      )}
 
       {mail.attachment && (
         <div>

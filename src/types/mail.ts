@@ -8,6 +8,8 @@ export interface Mail {
   sender: string;
   date: string;
   description?: string;
-  attachment?: File;
+  attachment?: string | null;
   status: MailStatus;
+  created_at?: string;
+  updated_at?: string;
 }
